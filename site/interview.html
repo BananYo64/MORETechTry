@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const form = new FormData();
             form.append("candidate_answer_ru", text);
 
-            const res = await fetch("http://192.168.100.100:8000/api/receive", {
+            const res = await fetch("http://127.0.0.1:8000/api/receive", {
                 method: "POST",
                 body: form
             });
@@ -594,4 +594,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </body>
+
 </html>
