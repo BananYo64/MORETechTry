@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Минималистичная форма с изображением-заголовком</title>
+    <style>
+        :root {
+            /* Цветовая палитра */
+            --color-1: #211d54;
+            --color-2: #22275e;
+            --color-3: #273768;
+            --color-4: #284b77;
+            --color-5: #24648f;
+            --color-6: #1c86a0;
+            --color-7: #13acae;
+            --color-8: #0ac7a1;
+            --color-9: #00e07f;
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --input-bg: #f5f5f5;
+            --border-radius: 16px;
+            
+            /* Фоновые изображения по умолчанию */
+            --bg-image: url(liight.png);
+        }
+
+        .dark-theme {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --input-bg: #2a2a2a;
+            --bg-image: url('dark.png');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            
+            /* Фоновое изображение */
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Стили для изображения-заголовка */
+        .title-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 20px auto;
+        }
+
+        .text-block {
+            background: linear-gradient(to right, var(--color-8), var(--color-9));
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-5);
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--color-7);
+            border-radius: var(--border-radius);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--color-9);
+            box-shadow: 0 0 0 3px rgba(0, 224, 127, 0.3);
+        }
+
+        button {
+            background: linear-gradient(to right, var(--color-8), var(--color-9));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #pageBtn {
+            background: linear-gradient(to right, var(--color-8), var(--color-9));
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px; /* Изменили left на right */
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+        }
+
+        .control-btn {
+            padding: 10px 15px;
+            border-radius: 50px;
+            background-color: var(--color-5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Стили для раздела рекомендаций */
+        .recommendations-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            background-color: var(--input-bg);
+            border: 1px solid var(--color-7);
+        }
+
+        .recommendations-title {
+            color: var(--color-5);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.7rem;
+        }
+
+        .recommendations-content {
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--color-5);
+            font-style: italic;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                left: auto; /* Убедимся, что left не переопределяет right */
+                right: 20px; /* Сохраняем позицию справа на мобильных */
+            }
+            
+            .title-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+     <div class="container-wrapper">
+        <div class="container">
+            <h2 class="recommendations-title">Рекомендации</h2>
+            <!-- Раздел рекомендаций -->
+            <div class="recommendations-section">
+                <div class="recommendations-content" id="recommendationsText">
+                    <div class="loading">Загрузка рекомендаций...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="controls">
+        <button class="control-btn" id="themeToggle">Тёмная тема</button>
+        <button class="control-btn" id="languageToggle">English</button>
+    </div>
+</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функция для получения рекомендаций с IP-порта
+            async function fetchRecommendations() {
+                const recommendationsText = document.getElementById('recommendationsText');
+                
+                try {
+                    // Здесь нужно указать правильный URL IP-порта
+                    // Для демонстрации используем временную заглушку
+                    // const response = await fetch('http://ip-port-url/recommendations');
+                    // const data = await response.json();
+                    
+                    // Имитация запроса к серверу с задержкой
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // В реальном коде используйте данные с сервера:
+                    // recommendationsText.innerHTML = data.text;
+                    
+                    // Заглушка с примером текста
+                    recommendationsText.innerHTML = `
+                        Ключевая рекомендация — сфокусируйтесь на прочном фундаменте. Освойте Python и основные библиотеки: Pandas для работы с данными, NumPy для вычислений, Scikit-learn для машинного обучения и Matplotlib/Seaborn для визуализации. Уделите время изучению математической базы: статистики, линейной алгебры и основ математического анализа. Это критически важно для понимания принципов работы алгоритмов, а не просто их применения.
+                    `;
+                    
+                } catch (error) {
+                    console.error('Ошибка при получении рекомендаций:', error);
+                    recommendationsText.innerHTML = '<div class="error">Не удалось загрузить рекомендации. Попробуйте позже.</div>';
+                }
+            }
+            
+            // Переключение темы
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+                themeToggle.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Тёмная тема';
+            });
+            
+            // Переключение языка (упрощенная версия)
+            const languageToggle = document.getElementById('languageToggle');
+            languageToggle.addEventListener('click', function() {
+                const isEnglish = languageToggle.textContent === 'English';
+                languageToggle.textContent = isEnglish ? 'Русский' : 'English';
+                
+                // Здесь можно добавить логику смены языка
+                if (isEnglish) {
+                    document.querySelector('.recommendations-title').textContent = 'Recommendations';
+                    fetchRecommendations(); // Перезагружаем рекомендации на английском
+                } else {
+                    document.querySelector('.recommendations-title').textContent = 'Рекомендации';
+                    fetchRecommendations(); // Перезагружаем рекомендации на русском
+                }
+            });
+            
+            // Загружаем рекомендации при загрузке страницы
+            fetchRecommendations();
+        });
+    </script>
+</html>
