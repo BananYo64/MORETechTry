@@ -22,12 +22,13 @@ sudo cp -r site/* /var/www/html/
 pip install -r requirements.txt
 ```
 
-## 4. Запуск сервера
-Запустите backend-сервер на **Uvicorn**:
+## 4. Запуск серверов
+Запустите backend-сервера на **Uvicorn**:
 ```bash
 uvicorn chatServer:app --host 0.0.0.0 --port 8000
+uvicorn voiceServer:app --reload --host 0.0.0.0 --port 8080
+uvicorn analysiServer:app --reload --host 0.0.0.0 --port 8888
 ```
 
 ## 5. Доступ к проекту
 - Фронтенд: [http://localhost](http://localhost)  
-- Backend: [http://localhost:8000](http://localhost:8000)
