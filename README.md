@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```bash
 uvicorn chatServer:app --host 0.0.0.0 --port 8000
 uvicorn voiceServer:app --reload --host 0.0.0.0 --port 8080
-uvicorn analysiServer:app --reload --host 0.0.0.0 --port 8888
+uvicorn analysiServer:app --host 0.0.0.0 --port 8888
 ```
 
 ## 5. Доступ к проекту
